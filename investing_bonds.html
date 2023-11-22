@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investing in Bonds</title>
+<style>
+  /* Add your CSS styles here */
+</style>
+</head>
+<body>
+    <h1>Investing in Bonds</h1>
+    <p>[Your description text about investing in bonds]</p>
+    <form id="allocationFormBonds">
+        <label for="spendAmountBonds">How much would you like to spend on Bonds?</label>
+        <input type="number" id="spendAmountBonds" name="spendAmountBonds" min="0" value="0">
+        <input type="submit" value="Allocate">
+    </form>
+    <button onclick="window.location.href='budget.html'">Back to home</button>
+
+    <script>
+    document.getElementById('allocationFormBonds').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var spendAmount = document.getElementById('spendAmountBonds').value;
+        localStorage.setItem('bondsAllocation', spendAmount);
+        window.location.href = 'budget.html';
+    });
+    </script>
+</body>
+</html>

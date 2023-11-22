@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budget Allocation</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+        padding: 20px;
+        background-color: #D0DEBB;
+    }
+    .budget-info {
+        margin-bottom: 30px;
+    }
+    .option, .button {
+        background-color: #658D1B;
+        color: white;
+        padding: 10px 15px;
+        margin: 10px;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+    }
+    .button.hidden {
+        display: none;
+    }
+</style>
+</head>
+<body>
+    <div class="budget-info">
+        <h2>Your remaining budget this month, after covering necessities, is...</h2>
+        <div id="remainingBudget">$<span id="budgetAmount">600</span></div>
+    </div>
+    <div>
+        <a href="going_out.html" class="option">Going Out</a>
+        <a href="investing_etfs.html" class="option">Investing in ETFs</a>      
+        <a href="investing_stocks.html" class="option">Investing in Stocks</a>
+        <a href="high_yield_savings.html" class="option">High-Yield Savings Account</a>
+        <a href="investing_crypto.html" class="option">Investing in Crypto/NFTs</a>
+        <a href="investing_bonds.html" class="option">Investing in Bonds</a>
+    </div>
+    <div>
+        <button id="resetBudget" class="button">Reset Budget</button>
+        <button id="conclusionButton" class="button hidden">See Conclusion</button>
+    </div>
+
+    <script>
+        function updateBudgetDisplay() {
+            var budget = localStorage.getItem('budget') || '600';
+            document.getElementById('budgetAmount').textContent = budget;
+            updateConclusionButtonVisibility(budget);
+        }
+
+        function updateConclusionButtonVisibility(budget) {
+            var conclusionButton = document.getElementById('conclusionButton');
+            if (parseInt(budget, 10) <= 0) {
+                conclusionButton.classList.remove('hidden');
+            } else {
+                conclusionButton.classList.add('hidden');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBudgetDisplay();
+        });
+
+        document.getElementById('resetBudget').addEventListener('click', function() {
+            localStorage.setItem('budget', '600');
+            updateBudgetDisplay();
+        });
+
+        document.getElementById('conclusionButton').addEventListener('click', function() {
+            window.location.href = 'conclusion.html';
+        });
+    </script>
+</body>
+</html>
