@@ -3,16 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Investing in Stocks</title>
-<!-- Add CSS styles here -->
+<title>Going Out</title>
+<style>
+    body {
+        text-align: center; /* Center text */
+        font-family: Arial, sans-serif;
+        background-color: #00778b;
+        color: white;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    form, button {
+        margin: 10px 0;
+    }
+
+</style>
 </head>
 <body>
-    <h1>Investing in Stocks</h1>
-    <p>Investing in stocks means owning shares of a single company, which can be volatile and risky. [...]</p>
-    <label for="spendAmount">How much would you like to spend on Stocks?</label>
-    <input type="number" id="spendAmount" name="spendAmount" value="0">
-    <button id="submit">Submit</button>
-    <a href="budget.html"><button>Back to home</button></a>
-    <!-- Add JavaScript here -->
+    <div class="container">
+        <h1>Investing in Stocks</h1>
+        <p>Investing in stocks means owning shares of a single company, which can be
+            volatile and risky. The stock value depends on the company, market trends,
+            and economic conditions. Investors look for capital appreciation and dividend
+            payments. Unlike diversified ETFs, stocks offer higher potential returns but
+            require tailored portfolios to align with industry, growth strategies, or risk
+            tolerance levels</p>
+        <form id="allocationForm">
+            <h2>How much would you like to spend on stocks?</h2>
+            <label for="spendAmount">$0 is also a perfectly fine answer!</label>
+            <input type="number" id="spendAmount" name="spendAmount" min="0" value="0">
+            <button type="submit" style="background-color: #658d1b">Submit</button>
+        </form>
+        <button onclick="window.location.href='budget.html'" style="background-color: orange">Back to home</button>
+    </div>
+    
+    <script>
+        document.getElementById('allocationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var spendAmount = parseInt(document.getElementById('spendAmount').value, 10);
+            var currentBudget = parseInt(localStorage.getItem('budget') || '600', 10);
+
+            if (spendAmount <= currentBudget) {
+                currentBudget -= spendAmount;
+                localStorage.setItem('budget', currentBudget.toString());
+                window.location.href = 'budget.html';
+            } else {
+                alert("You don't have enough budget for this option.");
+            }
+        });
+    </script>
 </body>
 </html>
+

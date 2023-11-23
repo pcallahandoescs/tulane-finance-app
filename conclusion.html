@@ -27,80 +27,13 @@
 </style>
 </head>
 <body>
+
     <h1>Congratulations!</h1>
     <p>Here is your final budget breakdown.</p>
     <p>We hope this exercise gave you a whole new world of money-management possibilities!</p>
     <div id="chartContainer">
-        <!-- The SVG pie chart will be generated here by JavaScript -->
     </div>
     <button onclick="window.location.href='budget.html'" class="button">Restart</button>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-    
-    const data = [
-        { label: 'Going Out', value: 100, color: '#226666' },
-        { label: 'Investing in ETFs', value: 150, color: '#44CCCC' },
-        { label: 'Investing in Stocks', value: 200, color: '#88AAAA' },
-        { label: 'High-Yield Savings Account', value: 50, color: '#BBCCCC' },
-        { label: 'Investing in Crypto/NFTs', value: 100, color: '#DDDDDD' },
-    ];
-
-    // Calculate the total value of the entire pie
-    const totalValue = data.reduce((acc, item) => acc + item.value, 0);
-    let startAngle = 0;
-
-    // Function to calculate the path for a slice of the pie
-    function getPathData(value, startAngle, totalValue) {
-        // Each slice starts where the last slice ended, so keep a cumulative angle
-        const endAngle = startAngle + (value / totalValue) * 2 * Math.PI;
-        const largeArcFlag = value / totalValue > 0.5 ? 1 : 0;
-
-        // Calculate start and end points on the circle's circumference for the slice
-        const x1 = 16 + 16 * Math.cos(startAngle);
-        const y1 = 16 + 16 * Math.sin(startAngle);
-        const x2 = 16 + 16 * Math.cos(endAngle);
-        const y2 = 16 + 16 * Math.sin(endAngle);
-
-        // Build the path's 'd' attribute
-        const pathData = [
-            `M 16 16`, // Move to center
-            `L ${x1} ${y1}`, // Draw line to the start point of the slice on the circle
-            `A 16 16 0 ${largeArcFlag} 1 ${x2} ${y2}`, // Draw an arc of radius 16
-            `L 16 16`, // Close the path by drawing a line back to the center of the circle
-        ].join(' ');
-
-        // Return the path data and the end angle, for use by the next slice
-        return { pathData, endAngle };
-    }
-
-    // Create the SVG element
-    const svgns = 'http://www.w3.org/2000/svg';
-    const svg = document.createElementNS(svgns, 'svg');
-    svg.setAttribute('width', '32');
-    svg.setAttribute('height', '32');
-    svg.setAttribute('viewBox', '0 0 32 32');
-
-    // Create and append each slice to the SVG element
-    data.forEach(slice => {
-        const { pathData, endAngle } = getPathData(slice.value, startAngle, totalValue);
-
-        // Create the slice path
-        const path = document.createElementNS(svgns, 'path');
-        path.setAttribute('d', pathData);
-        path.setAttribute('fill', slice.color);
-
-        // Append the path to the SVG
-        svg.appendChild(path);
-
-        // The next slice starts where this one ends
-        startAngle = endAngle;
-    });
-
-    // Append the SVG to the chart container
-    document.getElementById('chartContainer').appendChild(svg);
-}); 
-
-    </script>
 </body>
 </html>
